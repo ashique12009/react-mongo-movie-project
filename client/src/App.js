@@ -1,8 +1,15 @@
-import React from 'react'
+import React from 'react';
+import Header from './components/header/Header';
+import {AppBar, Toolbar} from '@mui/material';
+import './App.css';
 
 const App = () => {
   return (
-    <div>App</div>
+    <AppBar>
+      <Toolbar>
+        <Header />
+      </Toolbar>
+    </AppBar>
   )
 }
 
