@@ -1,21 +1,24 @@
-import React from 'react'
+import React from 'react';
+import { AppBar, Toolbar } from '@mui/material';
 import MovieIcon from '@mui/icons-material/Movie';
 import { Typography } from '@mui/material';
+import LoginDialog from './LoginDialog';
+import LoginButton from './LoginButton';
 
 const Header = () => {
-  return (
-    <div>
-        <div className="header-logo">
-            <MovieIcon />
-            <Typography variant="span">
-                Movies App
-            </Typography>
-        </div>
-        <div className="header-menu">
 
-        </div>
-    </div>
-  )
+    return (
+        <AppBar>
+            <Toolbar>
+                <MovieIcon />
+                <Typography>
+                    Movies App
+                </Typography>
+                <LoginDialog />
+                <LoginButton />
+            </Toolbar>
+        </AppBar>
+    )
 }
 
 export default Header;

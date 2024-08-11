@@ -1,16 +1,15 @@
 import React from 'react';
 import Header from './components/header/Header';
-import {AppBar, Toolbar} from '@mui/material';
 import './App.css';
+import Home from './components/home/Home';
 
 const App = () => {
-  return (
-    <AppBar>
-      <Toolbar>
-        <Header />
-      </Toolbar>
-    </AppBar>
-  )
+    return (
+        <div>
+            <Header />
+            <Home />
+        </div>
+    )
 }
 
 export default App;

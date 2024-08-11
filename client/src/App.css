@@ -24,8 +24,15 @@
 }
 
 /* header */
-.header-logo{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.header-button-container{
+  margin: 0 3% 0 auto;
+}
+.wbutton{
+  background-color: cornflowerblue !important;
+  color: #fff !important;
+}
+
+/* Home */
+.home-container{
+  margin-top: 75px;
 }
