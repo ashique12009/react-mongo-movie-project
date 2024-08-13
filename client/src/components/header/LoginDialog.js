@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dialog } from '@mui/material';
+import Login from './login/Login';
+import SignUp from './login/SignUp';
 
 const LoginDialog = ({ open = false, setOpen }) => {
 
-  return (
-    <Dialog open={open} onClose={() => setOpen(false)}>
-        <div>LoginDialog</div>
-    </Dialog>
-  )
+    const [loginSignUp, setLoginSignUp] = useState(true);
+
+    return (
+        <Dialog open={open} onClose={() => setOpen(false)}>
+            {
+                loginSignUp
+                    ? <Login setLoginSignUp={setLoginSignUp} />
+                    : <SignUp setLoginSignUp={setLoginSignUp} />
+            }
+        </Dialog>
+    )
 }
 
 export default LoginDialog;
