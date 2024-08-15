@@ -1,5 +1,5 @@
 import User from "../model/userSchema.js";
-import hashPassword from "./auth.js";
+import { hashPassword, isMatch } from "./auth.js";
 
 const signUpHandler = async (request, response) => {
     try {
@@ -40,4 +40,28 @@ const signUpHandler = async (request, response) => {
     }
 }
 
-export default signUpHandler;
+const loginHandler = async (request, response) => {
+    try {
+        const { email, password } = request.body;
+        const user = await User.findOne({email});
+
+        if (!user) {
+            return response.status(422).json({ error: "User not found" });
+        }
+
+        if (user) {
+            const matchResult = await isMatch(password, user.password);
+            if (!matchResult) {
+                return response.status(422).json({ error: "Invalid email or password" });
+            }
+
+            return response.status(200).json({ message: "Login successful", user: user });
+        } else {
+            return response.status(422).json({ error: "Invalid email or password" });
+        }
+    } catch (error) {
+        console.log("Input Error or Server Error", error);
+    }
+}
+
+export { signUpHandler, loginHandler };
