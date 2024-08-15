@@ -1,32 +1,38 @@
 import User from "../model/userSchema.js";
+import hashPassword from "./auth.js";
 
 const signUpHandler = async (request, response) => {
     try {
-        const { name, email, password, cpassword } = request.body;
+        const { name, email, password, cpassword, userType } = request.body;
 
         if (!name) {
-            response.status(422).json({ error: "Please add name" });
+            return response.status(422).json({ error: "Please add name" });
         }
 
         if (!email) {
-            response.status(422).json({ error: "Please add email" });
+            return response.status(422).json({ error: "Please add email" });
         }
 
         if (!password || password.length < 6) {
-            response.status(422).json({ error: "Password must be at least 6 characters" });
+            return response.status(422).json({ error: "Password must be at least 6 characters" });
         }
 
         if (password !== cpassword) {
-            response.status(422).json({ error: "Passwords don't match" });
+            return response.status(422).json({ error: "Passwords don't match" });
         }
 
         const user = await User.findOne({email});
         if(user) {
-            response.status(422).json({ error: "Email already exists" });
+            return response.status(422).json({ error: "Email already exists" });
         }
         
         // Now create user
-        await User.create(request.body);
+        await User.create({
+            name,
+            email,
+            password: await hashPassword(password),
+            userType
+        });
         response.status(201).json({ message: "User created successfully" });
 
     } catch (error) {
