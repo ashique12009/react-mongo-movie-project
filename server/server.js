@@ -5,6 +5,8 @@ import router from './view/route.js';
 
 const app = express();
 
+// Middleware parse json
+app.use(express.json());
 // Use Route
 app.use("/", router);
 
