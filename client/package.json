@@ -7,8 +7,9 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.14.19",
     "@mui/material": "^5.16.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "react-router-dom": "^6.26.1",
     "react-scripts": "^5.0.0"
   },
   "scripts": {
@@ -21,10 +22,10 @@
     "@babel/core": "^7.25.2",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/plugin-proposal-private-property-in-object": "*",
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-react": "^7.24.7",
-    "babel-loader": "^9.1.3",
-    "@babel/plugin-proposal-private-property-in-object": "*"
+    "babel-loader": "^9.1.3"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
