@@ -6,24 +6,24 @@ const signUpHandler = async (request, response) => {
         const { name, email, password, cpassword, userType } = request.body;
 
         if (!name) {
-            return response.status(422).json({ error: "Please add name" });
+            return response.json({ error: "Please add name" });
         }
 
         if (!email) {
-            return response.status(422).json({ error: "Please add email" });
+            return response.json({ error: "Please add email" });
         }
 
         if (!password || password.length < 6) {
-            return response.status(422).json({ error: "Password must be at least 6 characters" });
+            return response.json({ error: "Password must be at least 6 characters" });
         }
 
         if (password !== cpassword) {
-            return response.status(422).json({ error: "Passwords don't match" });
+            return response.json({ error: "Passwords don't match" });
         }
 
         const user = await User.findOne({email});
         if(user) {
-            return response.status(422).json({ error: "Email already exists" });
+            return response.json({ error: "Email already exists" });
         }
         
         // Now create user

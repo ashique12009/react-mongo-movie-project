@@ -1,5 +1,7 @@
 import { Box, styled, Button, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import axios from 'axios';
+import { DataContext } from '../../context/DataProvider';
 
 const LoginButton = styled(Button)`
     background-color: white;
@@ -27,23 +29,51 @@ const init = {
     name : '',
     email : '',
     password: '',
-    cpassword: ''
+    cpassword: '',
+    userType: ''
 }
+
+const base_url = "http://localhost:8080";
 
 const SignUp = ({ setLoginSignUp }) => {
 
     const [loginCredentials, setSignUp] = useState(init);
-
-    const [error, setError] = useState({color: "red", visibility: "visible"});
+    const [error, setError] = useState({color: "red", visibility: "hidden"});
+    const [message, setMessage] = useState("");
+    
+    const { account } = useContext(DataContext);
 
     const inputHandler = (event) => {
-        console.log('inputHandler');
         setSignUp({ ...loginCredentials, [event.target.name]: event.target.value });
     }
 
-    const submitHandler = (event) => {
+    const submitHandler = async (event) => {
         event.preventDefault();
-        console.log('submitHandler', loginCredentials);
+        try {
+
+            let updatedCredentials = { ...loginCredentials };
+
+            if (account.userType == "admin") {
+                updatedCredentials.userType = "admin";
+            } else {
+                updatedCredentials.userType = "user";
+            }
+
+            // Set the updated state
+            setSignUp(updatedCredentials);
+
+            const response = await axios.post(`${base_url}/signup`, updatedCredentials);
+
+            if (response.data.error) {
+                setError({color: "red", visibility: "visible"});
+                setMessage(response.data.error);
+            } else {
+                setLoginSignUp(true);
+            }
+
+        } catch (error) {
+            console.error(`Error: ${error}`);
+        }
     }
 
     return (
@@ -67,7 +97,7 @@ const SignUp = ({ setLoginSignUp }) => {
                         <LoginButton type='submit'>Sign Up</LoginButton>
                         <Typography>Have an account? <span style={{ cursor: 'pointer' }} onClick={() => setLoginSignUp(true)}>Login</span></Typography>
                     </DivBox>
-                    <span style={error}>{`Error`}</span>
+                    <span style={error}>{`${message}`}</span>
                 </form>
             </InnerContainer>
         </Container>
