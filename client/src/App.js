@@ -13,17 +13,11 @@ const App = () => {
                 <Header />
                 <Routes>
                     {
-                        false ? 
-                        (
                         <>
                             <Route path="/admin/dashboard" element={<AdminDashboard />} />
                             <Route path="/user/dashboard" element={<UserDashboard />} />
-                        </>
-                        )
-                        :
-                        (
                             <Route path="/" element={<Home />} />
-                        ) 
+                        </>
                     }
                 </Routes>
             </Router>

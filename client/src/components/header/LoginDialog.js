@@ -11,8 +11,8 @@ const LoginDialog = ({ open = false, setOpen }) => {
         <Dialog open={open} onClose={() => setOpen(false)}>
             {
                 loginSignUp
-                    ? <Login setLoginSignUp={setLoginSignUp} />
-                    : <SignUp setLoginSignUp={setLoginSignUp} />
+                    ? <Login setLoginSignUp={setLoginSignUp} setOpen={setOpen} />
+                    : <SignUp setLoginSignUp={setLoginSignUp} setOpen={setOpen} />
             }
         </Dialog>
     )

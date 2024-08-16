@@ -1,5 +1,8 @@
 import { Box, styled, Button, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { DataContext } from '../../context/DataProvider';
 
 const LoginButton = styled(Button)`
     background-color: white;
@@ -28,18 +31,43 @@ const init = {
     password: ''
 }
 
-const Login = ({ setLoginSignUp }) => {
+const base_url = "http://localhost:8080";
+
+const Login = ({ setLoginSignUp, setOpen }) => {
 
     const [loginCredentials, setLogin] = useState(init);
+    const [error, setError] = useState({color: "red", visibility: "hidden"});
+    const [message, setMessage] = useState("");
+
+    const { account } = useContext(DataContext);
+    const navigate = useNavigate();
 
     const inputHandler = (event) => {
-        console.log('inputHandler');
+        setError({color: "red", visibility: "hidden"});
         setLogin({ ...loginCredentials, [event.target.name]: event.target.value });
     }
 
-    const submitHandler = (event) => {
+    const submitHandler = async (event) => {
         event.preventDefault();
-        console.log('submitHandler', loginCredentials);
+        try {
+            const response = await axios.post(`${base_url}/login`, loginCredentials);
+            if (response.data.error) {
+                setError({color: "red", visibility: "visible"});
+                setMessage(response.data.error);
+            } else {
+                // Successfully logged in, redirect to dashboard
+                if (account.userType == "admin") {
+                    navigate("/admin/dashboard");
+                }
+                else {
+                    navigate("/user/dashboard");
+                }
+                setOpen(false);
+            }
+
+        } catch (error) {
+            console.error(`Error: ${error}`);
+        }
     }
 
     return (
@@ -57,6 +85,7 @@ const Login = ({ setLoginSignUp }) => {
                         <LoginButton type='submit'>Login</LoginButton>
                         <Typography>Don't have an account? <span style={{ cursor: 'pointer' }} onClick={() => setLoginSignUp(false)}>SignUp</span></Typography>
                     </DivBox>
+                    <span style={error}>{`${message}`}</span>
                 </form>
             </InnerContainer>
         </Container>

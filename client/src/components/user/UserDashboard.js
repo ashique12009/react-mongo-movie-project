@@ -2,7 +2,7 @@ import React from 'react';
 
 const UserDashboard = () => {
   return (
-    <div style={{marginTop: '75px'}}>UserDashboard</div>
+    <div style={{marginTop: '75px'}}>User Dashboard</div>
   )
 }
 

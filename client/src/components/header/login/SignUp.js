@@ -40,10 +40,11 @@ const SignUp = ({ setLoginSignUp }) => {
     const [loginCredentials, setSignUp] = useState(init);
     const [error, setError] = useState({color: "red", visibility: "hidden"});
     const [message, setMessage] = useState("");
-    
+
     const { account } = useContext(DataContext);
 
     const inputHandler = (event) => {
+        setError({color: "red", visibility: "hidden"});
         setSignUp({ ...loginCredentials, [event.target.name]: event.target.value });
     }
 

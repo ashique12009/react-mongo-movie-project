@@ -46,18 +46,18 @@ const loginHandler = async (request, response) => {
         const user = await User.findOne({email});
 
         if (!user) {
-            return response.status(422).json({ error: "User not found" });
+            return response.json({ error: "User not found" });
         }
 
         if (user) {
             const matchResult = await isMatch(password, user.password);
             if (!matchResult) {
-                return response.status(422).json({ error: "Invalid email or password" });
+                return response.json({ error: "Invalid email or password" });
             }
 
             return response.status(200).json({ message: "Login successful", user: user });
         } else {
-            return response.status(422).json({ error: "Invalid email or password" });
+            return response.json({ error: "Invalid email or password" });
         }
     } catch (error) {
         console.log("Input Error or Server Error", error);
