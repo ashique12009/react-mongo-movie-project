@@ -12,9 +12,19 @@ const App = () => {
             <Router>
                 <Header />
                 <Routes>
-                    <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                    <Route path="/user/dashboard" element={<UserDashboard />} />
-                    <Route path="/" element={<Home />} />
+                    {
+                        false ? 
+                        (
+                        <>
+                            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                            <Route path="/user/dashboard" element={<UserDashboard />} />
+                        </>
+                        )
+                        :
+                        (
+                            <Route path="/" element={<Home />} />
+                        ) 
+                    }
                 </Routes>
             </Router>
         </div>

@@ -34,6 +34,8 @@ const SignUp = ({ setLoginSignUp }) => {
 
     const [loginCredentials, setSignUp] = useState(init);
 
+    const [error, setError] = useState({color: "red", visibility: "visible"});
+
     const inputHandler = (event) => {
         console.log('inputHandler');
         setSignUp({ ...loginCredentials, [event.target.name]: event.target.value });
@@ -65,6 +67,7 @@ const SignUp = ({ setLoginSignUp }) => {
                         <LoginButton type='submit'>Sign Up</LoginButton>
                         <Typography>Have an account? <span style={{ cursor: 'pointer' }} onClick={() => setLoginSignUp(true)}>Login</span></Typography>
                     </DivBox>
+                    <span style={error}>{`Error`}</span>
                 </form>
             </InnerContainer>
         </Container>
