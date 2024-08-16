@@ -39,7 +39,7 @@ const Login = ({ setLoginSignUp, setOpen }) => {
     const [error, setError] = useState({color: "red", visibility: "hidden"});
     const [message, setMessage] = useState("");
 
-    const { account } = useContext(DataContext);
+    const { account, setAccount } = useContext(DataContext);
     const navigate = useNavigate();
 
     const inputHandler = (event) => {
@@ -55,6 +55,8 @@ const Login = ({ setLoginSignUp, setOpen }) => {
                 setError({color: "red", visibility: "visible"});
                 setMessage(response.data.error);
             } else {
+                // Set the updated state
+                setAccount({ ...account, ...loginCredentials });
                 // Successfully logged in, redirect to dashboard
                 if (account.userType == "admin") {
                     navigate("/admin/dashboard");
