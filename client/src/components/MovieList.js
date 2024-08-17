@@ -7,9 +7,10 @@ const base_url = "http://localhost:8080";
 const MovieList = ({ searchInput }) => {
 
     const [movieList, setMovieList] = useState([]);
+    console.log(searchInput);
 
     // Fetch movies from API
-    useEffect(()=>{
+    useEffect(() => {
         const fetchMovies = async () => {
             try {
                 const response = await axios.get(`${base_url}/movies`);
@@ -18,9 +19,7 @@ const MovieList = ({ searchInput }) => {
                 console.error(`Error fetching data: ${e}`);
             }
         }
-
         fetchMovies();
-
     }, []);
 
     // Display movies
@@ -28,24 +27,33 @@ const MovieList = ({ searchInput }) => {
         <>
             <h2>Movie List</h2>
             <Grid container spacing={3}>
-                {movieList.map((movie) => (
-                    <Grid item lg={3} key={movie._id}>
-                        <Card>
-                            <CardMedia
-                                component="img"
-                                height="200"
-                                image={movie.poster ? movie.poster : 'https://placehold.co/600x400'} // Assuming movie has a posterUrl property
-                                alt={movie.title}
-                            />
+                {
+                    movieList.filter((value) => {
+                        if (searchInput === "") {
+                            return value;
+                        }
+                        else if (value.title.toLowerCase().includes(searchInput.toLowerCase())) {
+                            return value;
+                        }
+                    }).map((movie) => (
+                        <Grid item lg={3} key={movie._id}>
+                            <Card>
+                                <CardMedia
+                                    component="img"
+                                    height="200"
+                                    image={movie.poster ? movie.poster : 'https://placehold.co/600x400'} // Assuming movie has a posterUrl property
+                                    alt={movie.title}
+                                />
 
-                            <CardContent>
-                                <div>Title: {movie.title}</div>
-                                <div>Genre: {movie.genre}</div>
-                                <div>Year: {movie.year}</div>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                ))}
+                                <CardContent>
+                                    <div>Title: {movie.title}</div>
+                                    <div>Genre: {movie.genre}</div>
+                                    <div>Year: {movie.year}</div>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))
+                }
             </Grid>
         </>
     )
