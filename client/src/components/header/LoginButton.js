@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import LoginDialog from './LoginDialog';
 import { Button } from '@mui/material';
 import { DataContext } from '../context/DataProvider';
+import Profile from './Profile';
 
 const LoginButton = () => {
 
@@ -21,12 +22,23 @@ const LoginButton = () => {
 
     return (
         <div className='header-button-container'>
-            <Button className='wbutton' style={{ marginRight: '5px' }} onClick={adminDialog}>
-                Admin User
-            </Button>
-            <Button className='wbutton' onClick={userDialog}>
-                User
-            </Button>
+            {
+                account.email ? 
+                (
+                    <Profile account={account} setAccount={setAccount} />
+                ) 
+                : 
+                (
+                    <>
+                        <Button className='wbutton' style={{ marginRight: '5px' }} onClick={adminDialog}>
+                            Admin User
+                        </Button>
+                        <Button className='wbutton' onClick={userDialog}>
+                            User
+                        </Button>
+                    </>
+                )
+            }
 
             <LoginDialog open={open} setOpen={setOpen} />
         </div>

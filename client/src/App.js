@@ -10,7 +10,6 @@ import { DataContext } from './components/context/DataProvider';
 const App = () => {
 
     const {account, setAccount} = useContext(DataContext);
-    console.log('ACCOUNT CHECKUP', account);
 
     return (
         <div>
