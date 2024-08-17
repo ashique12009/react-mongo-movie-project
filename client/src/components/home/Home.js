@@ -1,9 +1,13 @@
 import React from 'react'
+import MovieList from '../MovieList';
 
-const Home = () => {
-  return (
-    <div className='home-container'>Home</div>
-  )
+const Home = ({ searchInput }) => {
+    return (
+        <>
+            <div className='home-container'>Home</div>
+            <MovieList searchInput={searchInput} />
+        </>
+    )
 }
 
 export default Home;

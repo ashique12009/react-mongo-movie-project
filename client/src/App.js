@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Header from './components/header/Header';
 import './App.css';
 import Home from './components/home/Home';
@@ -9,12 +9,13 @@ import { DataContext } from './components/context/DataProvider';
 
 const App = () => {
 
+    const [searchInput, setSearchInput] = useState("");
     const {account, setAccount} = useContext(DataContext);
 
     return (
         <div>
             <Router>
-                <Header />
+                <Header setSearchInput={setSearchInput} />
                 <Routes>
                     {
                         account.email ? 
@@ -30,7 +31,7 @@ const App = () => {
                         ) : 
                         (
                             <>
-                                <Route path="/" element={<Home />} />
+                                <Route path="/" element={<Home searchInput={searchInput} />} />
                             </>
                         )
                     }

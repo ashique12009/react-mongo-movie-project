@@ -4,8 +4,9 @@ import MovieIcon from '@mui/icons-material/Movie';
 import { Typography } from '@mui/material';
 import LoginDialog from './LoginDialog';
 import LoginButton from './LoginButton';
+import Search from '../Search';
 
-const Header = () => {
+const Header = ({setSearchInput}) => {
 
     return (
         <AppBar>
@@ -14,6 +15,7 @@ const Header = () => {
                 <Typography>
                     Movies App
                 </Typography>
+                <Search setSearchInput={setSearchInput} />
                 <LoginDialog />
                 <LoginButton />
             </Toolbar>
